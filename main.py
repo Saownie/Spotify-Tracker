@@ -28,15 +28,16 @@ def get_token():
 def get_header(token):
     return{"Authorization": "Bearer " + token}
 
-def search_artist(token,artist_name):
+def search_forartist(token,artist_name):
     url="https://api.spotify.com/v1/search"
     headers=get_header(token)
     query=f"?q={artist_name}&type=artist&limit=1"
     
     query_url= url + query
     result=get(query_url,headers=headers)
-    json_result=json.loads(result.content)
+    json_result=json.loads(result.content)["artists"]["items"]
+    
     print (json_result)
 
 token=get_token()
-search_artist(token,"The Beatles")
+search_forartist(token,"The Beatles")
